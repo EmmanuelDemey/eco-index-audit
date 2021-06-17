@@ -17,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/EmmanuelDemey/eco-index-audit/issues"
   },
-  "homepage": "https://github.com/EmmanuelDemey/eco-index-audit#readme"
+  "homepage": "https://github.com/EmmanuelDemey/eco-index-audit#readme",
+  "dependencies": {
+    "cli-table": "^0.3.6",
+    "command-line-args": "^5.1.1",
+    "puppeteer": "^10.0.0"
+  }
 }
