@@ -1,0 +1,21 @@
+{
+  "name": "eco-index-audit",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/main.js",
+  "bin": "src/cli.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmmanuelDemey/eco-index-audit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EmmanuelDemey/eco-index-audit/issues"
+  },
+  "homepage": "https://github.com/EmmanuelDemey/eco-index-audit#readme"
+}
