@@ -78,7 +78,7 @@ let quantiles_dom = [
     const q_req = computeQuantile(quantiles_req, req);
     const q_size = computeQuantile(quantiles_size, size);
   
-    return 100 - (5 * (3 * q_dom + 2 * q_req + q_size)) / 6;
+    return Math.round(100 - (5 * (3 * q_dom + 2 * q_req + q_size)) / 6);
   }
   
   function computeQuantile(quantiles, value) {
