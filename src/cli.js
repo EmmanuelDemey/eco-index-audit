@@ -4,7 +4,7 @@ const commandLineArgs = require("command-line-args");
 const optionDefinitions = [
   { name: "grade", alias: "g", type: String },
   { name: "ecoIndex", alias: "e", type: Number },
-  { name: "url", type: String },
+  { name: "url", type: String, multiple: true },
 ];
 
 (async () => {
