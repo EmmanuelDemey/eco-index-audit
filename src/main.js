@@ -8,7 +8,7 @@ module.exports = async (options) => {
   const result = await audit(options.url);
   const gradeInput = grades.findIndex((o) => o === options.grade);
   const gradeOutput = grades.findIndex((o) => o === result.grade);
-console.log(result)
+
   reportResult(result);
   if (gradeInput !== -1 && gradeOutput > gradeInput) {
     console.error(`Your grade is ${gradeOutput}, but should be below ${gradeInput}`)

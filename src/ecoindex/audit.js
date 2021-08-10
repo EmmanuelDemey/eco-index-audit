@@ -109,7 +109,7 @@ module.exports = async (url) => {
   for (const url of urls) {
     numberOfRequests = 0;
     sizeOfRequests = 0;
-    console.log(url);
+
     await page.goto(url);
     const metrics = await page.evaluate(() => {
       return document.getElementsByTagName("*").length;
