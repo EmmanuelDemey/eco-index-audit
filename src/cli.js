@@ -1,10 +1,12 @@
 const check = require("./main");
 const commandLineArgs = require("command-line-args");
+const TOTAL_VISITS = 10000;
 
 const optionDefinitions = [
   { name: "grade", alias: "g", type: String },
   { name: "ecoIndex", alias: "e", type: Number },
   { name: "url", type: String, multiple: true },
+  { name: "visits", type: Number, defaultValue: TOTAL_VISITS },
 ];
 
 (async () => {

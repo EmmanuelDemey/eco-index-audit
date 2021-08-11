@@ -1,21 +1,20 @@
 const Table = require("cli-table");
-const TOTAL_VISITS = 10000;
 
-module.exports =  (result) => {
+module.exports =  (result, options) => {
     const table = new Table({
       head: ["Métrique", "Valeur", "Informations complémentaires"]
     });
 
     function getComplementaryGESInfo(greenhouseGasesEmission) {
         const input = 90; // 90 CO2 g/km
-        const convertedValue = Math.round(greenhouseGasesEmission * TOTAL_VISITS / input);
-        return `Pour un total de ${TOTAL_VISITS} visites par mois, ceci correspond à ${convertedValue}km en voiture (Peugeot 208 5P 1.6 BlueHDi FAP (75ch) BVM5)`;
+        const convertedValue = Math.round(greenhouseGasesEmission * options.visits / input);
+        return `Pour un total de ${options.visits} visites par mois, ceci correspond à ${convertedValue}km en voiture (Peugeot 208 5P 1.6 BlueHDi FAP (75ch) BVM5)`;
     }
 
     function getComplementaryWaterInfo(waterConsumption) {
         const input = 60; // 60L / douche
-        const convertedValue = Math.round(waterConsumption * TOTAL_VISITS / input);
-        return `Pour un total de ${TOTAL_VISITS} visites par mois, ceci correspond à ${convertedValue} douches`;
+        const convertedValue = Math.round(waterConsumption * options.visits / input);
+        return `Pour un total de ${options.visits} visites par mois, ceci correspond à ${convertedValue} douches`;
     }
 
     table.push(
