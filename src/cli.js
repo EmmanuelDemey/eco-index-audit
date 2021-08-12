@@ -7,6 +7,7 @@ const optionDefinitions = [
   { name: "ecoIndex", alias: "e", type: Number },
   { name: "url", type: String, multiple: true },
   { name: "visits", type: Number, defaultValue: TOTAL_VISITS },
+  { name: "output", type: String }
 ];
 
 (async () => {

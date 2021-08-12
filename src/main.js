@@ -9,7 +9,7 @@ module.exports = async (options) => {
   const gradeInput = grades.findIndex((o) => o === options.grade);
   const gradeOutput = grades.findIndex((o) => o === result.grade);
 
-  reportResult(result, options);
+  if(options.output === "table") reportResult(result, options);
   if (gradeInput !== -1 && gradeOutput > gradeInput) {
     console.error(`Your grade is ${gradeOutput}, but should be below ${gradeInput}`)
     return false
