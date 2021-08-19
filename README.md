@@ -16,6 +16,7 @@ npm i
 
 ```shell
 node ./src/cli.js --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=table
+node ./src/cli.js --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=csv
 ```
 
 
