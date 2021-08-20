@@ -1,7 +1,7 @@
 
 # Eco Index Audit
 
-
+[![Actions Status](https://github.com/EmmanuelDemey/eco-index-audit /workflows/Build%20project/badge.svg)](https://github.com/EmmanuelDemey/eco-index-audit /actions)
 
 ## Installation
 
