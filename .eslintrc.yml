@@ -1,0 +1,11 @@
+env:
+  node: true
+  commonjs: true
+  es2021: true
+globals:
+  document: true
+parserOptions:
+  ecmaVersion: 13
+extends:
+  - "eslint:recommended"
+rules: {}

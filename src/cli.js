@@ -1,4 +1,4 @@
-const check = require("./main");
+const check = require('./main');
 const commandLineArgs = require("command-line-args");
 const TOTAL_VISITS = 10000;
 

@@ -5,13 +5,18 @@
   "main": "src/main.js",
   "bin": "src/cli.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint src/"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/EmmanuelDemey/eco-index-audit.git"
   },
-  "keywords": ["web", "quality", "greenit", "ecoindex"],
+  "keywords": [
+    "web",
+    "quality",
+    "greenit",
+    "ecoindex"
+  ],
   "author": "Emmanuel Demey",
   "license": "ISC",
   "bugs": {
@@ -22,5 +27,8 @@
     "cli-table": "^0.3.6",
     "command-line-args": "^5.1.1",
     "puppeteer": "^10.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.5.0"
   }
 }
