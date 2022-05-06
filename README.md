@@ -5,6 +5,13 @@
 
 ## Installation
 
+If you just need to run an audit, you can use NPX
+
+```bash
+npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=table
+```
+
+But you can also clone, install and run the project locally. 
 
 ```bash
 git clone https://github.com/EmmanuelDemey/eco-index-audit 
