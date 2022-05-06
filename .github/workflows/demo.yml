@@ -18,4 +18,4 @@ jobs:
       with:
         node-version: 16
     - run: npm i -g eco-index-audit@0.6.0
-    - run: npx eco-index-audit --url=https://www.google.com/ --output=table
+    - run: npx eco-index-audit --url=https://www.google.com/ --ecoIndex=90 --output=table
