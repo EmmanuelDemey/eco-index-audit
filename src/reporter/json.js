@@ -16,7 +16,7 @@ module.exports = (result, options) => {
     {
       label: "GES",
       value: result.greenhouseGasesEmission,
-      unit: result.greenhouseGasesEmission,
+      unit: "eqCO2",
       comment: getComplementaryGESInfo(result.greenhouseGasesEmission, options),
     },
     {
