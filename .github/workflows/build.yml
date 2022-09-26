@@ -18,5 +18,3 @@ jobs:
       - name: Run Test
         run: |
           npm run test
-        env:
-          FORCE_COLOR: 1
