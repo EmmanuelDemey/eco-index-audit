@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should report with CSV 1`] = `
+"Métrique,Valeur,Informations complémentaires
+EcoIndex,56/100,
+Note,C,
+GES,1.88eqCO2,Pour un total de 2000 visites par mois, ceci correspond à 42km en voiture (Peugeot 208 5P 1.6 BlueHDi FAP (75ch) BVM5)
+Eau,2.82cl,Pour un total de 2000 visites par mois, ceci correspond à 1 douche"
+`;
+
+exports[`should report with JSON 1`] = `
+"[
+  {
+    "label": "EcoIndex",
+    "value": 56
+  },
+  {
+    "label": "Note",
+    "value": "C"
+  },
+  {
+    "label": "GES",
+    "value": 1.88,
+    "unit": "gCO2e",
+    "comment": "Pour un total de 2000 visites par mois, ceci correspond à 42km en voiture (Peugeot 208 5P 1.6 BlueHDi FAP (75ch) BVM5)"
+  },
+  {
+    "label": "Eau",
+    "value": 2.82,
+    "unit": "cl",
+    "comment": "Pour un total de 2000 visites par mois, ceci correspond à 1 douche"
+  }
+]"
+`;
+
+exports[`should report with TABLE 1`] = `
+"┌──────────┬───────────┬────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Métrique │ Valeur    │ Informations complémentaires                                                                                           │
+├──────────┼───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ EcoIndex │ 56/100    │                                                                                                                        │
+├──────────┼───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Note     │ C         │                                                                                                                        │
+├──────────┼───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ GES      │ 1.88eqCO2 │ Pour un total de 2000 visites par mois, ceci correspond à 42km en voiture (Peugeot 208 5P 1.6 BlueHDi FAP (75ch) BVM5) │
+├──────────┼───────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Eau      │ 2.82cl    │ Pour un total de 2000 visites par mois, ceci correspond à 1 douche                                                     │
+└──────────┴───────────┴────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘"
+`;
