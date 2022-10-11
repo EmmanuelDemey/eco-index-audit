@@ -55,7 +55,7 @@ Update snapshots with `npm test -- -u`
 
 ## Tech Stack
 
-Typescript, Puppeteer
+Node.js, Typescript, Puppeteer
 
 ## Authors
 
