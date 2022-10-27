@@ -35,6 +35,6 @@
   "devDependencies": {
     "cypress": "^10.11.0",
     "eslint": "^8.5.0",
-    "husky": "^7.0.4"
+    "husky": "^8.0.1"
   }
 }
