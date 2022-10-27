@@ -1,4 +1,4 @@
-const puppeteer = require("puppeteer");
+const PuppeteerTracker = require('./trackers/puppeteer');
 
 let quantiles_dom = [
   0,
@@ -84,46 +84,25 @@ function computeWaterConsumptionfromEcoIndex(ecoIndex) {
   return parseFloat((3 + (3 * (50 - ecoIndex)) / 100).toFixed(2));
 }
 
-module.exports = async (url) => {
+
+module.exports = async (url, tracker = PuppeteerTracker) => {
   const urls = Array.isArray(url) ? url : [url];
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
 
-  let numberOfRequests = 0;
-  let sizeOfRequests = 0;
+  const resultByUrl = await tracker.audit(urls);
 
-  const devToolsResponses = new Map();
-  const devTools = await page.target().createCDPSession();
-  await devTools.send("Network.enable");
-
-  devTools.on("Network.responseReceived", (event) => {
-    devToolsResponses.set(event.requestId, event.response);
-  });
-
-  devTools.on("Network.loadingFinished", (event) => {
-    numberOfRequests++;
-    sizeOfRequests += event.encodedDataLength;
-  });
-
-  const result = [];
-  for (const url of urls) {
-    numberOfRequests = 0;
-    sizeOfRequests = 0;
-
-    await page.goto(url);
-    const metrics = await page.evaluate(() => {
-      return document.getElementsByTagName("*").length;
-    });
+  const result = resultByUrl.map(({
+    metrics,
+    numberOfRequests,
+    sizeOfRequests
+  }) => {
     const ecoIndex = computeEcoIndex(metrics, numberOfRequests, Math.round(sizeOfRequests / 1000));
-    result.push({
+    return {
       ecoIndex,
       grade: getEcoIndexGrade(ecoIndex),
       greenhouseGasesEmission: computeGreenhouseGasesEmissionfromEcoIndex(ecoIndex),
       waterConsumption: computeWaterConsumptionfromEcoIndex(ecoIndex),
-    });
-  }
-
-  await browser.close();
+    }
+  });
 
   const ecoIndexAvg = result.reduce((acc, value) => acc + value.ecoIndex, 0) / result.length
   return {
