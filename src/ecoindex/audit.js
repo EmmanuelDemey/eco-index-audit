@@ -84,9 +84,23 @@ function computeWaterConsumptionfromEcoIndex(ecoIndex) {
   return parseFloat((3 + (3 * (50 - ecoIndex)) / 100).toFixed(2));
 }
 
+function checkUrl (url) {
+  let givenURL
+  try {
+      givenURL = new URL (url);
+  } catch (error) {
+     return false; 
+  }
+  return givenURL.protocol === "http:" || givenURL.protocol === "https:";
+}
 
 module.exports = async (url, tracker = PuppeteerTracker) => {
   const urls = Array.isArray(url) ? url : [url];
+  
+  const wrongUrl = urls.find(url => !checkUrl(url));
+  if(wrongUrl){
+    console.error(`You have at least one malformed URL`);
+  }
 
   const resultByUrl = await tracker.audit(urls);
 
