@@ -63,7 +63,10 @@ module.exports = defineConfig({
         async checkEcoIndex(url){
           const check = require('eco-index-audit/src/main')
           const response = await check({
-            url
+            url,
+            beforeScript: () => {
+              localStorage.setItem('authorisation', 'value')
+            }
           }, true);
           return response
         }

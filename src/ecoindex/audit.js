@@ -94,7 +94,9 @@ function checkUrl (url) {
   return givenURL.protocol === "http:" || givenURL.protocol === "https:";
 }
 
-module.exports = async (url, tracker = PuppeteerTracker) => {
+const tracker = PuppeteerTracker;
+
+module.exports = async (url, beforeScript) => {
   const urls = Array.isArray(url) ? url : [url];
   
   const wrongUrl = urls.find(url => !checkUrl(url));
@@ -102,7 +104,7 @@ module.exports = async (url, tracker = PuppeteerTracker) => {
     console.error(`You have at least one malformed URL`);
   }
 
-  const resultByUrl = await tracker.audit(urls);
+  const resultByUrl = await tracker.audit(urls, beforeScript);
 
   const result = resultByUrl.map(({
     metrics,

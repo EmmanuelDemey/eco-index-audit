@@ -6,10 +6,17 @@ module.exports = {
         return document.getElementsByTagName("*").length;
       });
     },
-    async audit(urls){
+    async audit(urls, beforeScript){
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
   
+      page.on('console', async (msg) => {
+        const msgArgs = msg.args();
+        for (let i = 0; i < msgArgs.length; ++i) {
+          console.log(await msgArgs[i].jsonValue());
+        }
+      });
+      
       let numberOfRequests = 0;
       let sizeOfRequests = 0;
     
@@ -32,6 +39,11 @@ module.exports = {
         sizeOfRequests = 0;
     
         await page.goto(url);
+
+        if(beforeScript){
+          await page.evaluate(beforeScript)
+        }
+        
         const metrics = await this.counterNumberOfNode(page)
   
         results.push({
