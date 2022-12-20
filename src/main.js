@@ -6,8 +6,7 @@ const reportJsonResult = require("./reporter/json")
 const grades = ["A", "B", "C", "D", "E", "F", "G"];
 
 module.exports = async (options, withResult = false) => {
-  
-  const result = await audit(options.url, options.beforeScript);
+  const result = await audit(options.url, options.beforeScript, options.afterScript, options.headless ?? true);
   const gradeInput = grades.findIndex((o) => o === options.grade);
   const gradeOutput = grades.findIndex((o) => o === result.grade);
   if (options.output === "csv") reportCsvResult(result, options);

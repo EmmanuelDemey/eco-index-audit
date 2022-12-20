@@ -6,8 +6,11 @@ module.exports = {
         return document.getElementsByTagName("*").length;
       });
     },
-    async audit(urls, beforeScript){
-      const browser = await puppeteer.launch();
+    async audit(urls, beforeScript, afterScript, headless){
+      const browser = await puppeteer.launch({
+        headless,
+        devtools: !headless
+      });
       const page = await browser.newPage();
   
       page.on('console', async (msg) => {
@@ -41,9 +44,22 @@ module.exports = {
         await page.goto(url);
 
         if(beforeScript){
-          await page.evaluate(beforeScript)
+          await page.evaluate(beforeScript);
+          numberOfRequests = 0;
+          sizeOfRequests = 0;
+          await page.goto(url);
         }
-        
+
+
+        if(afterScript){
+          await page.evaluate(afterScript)
+        }
+        if(!headless){
+          await page.evaluate(() => {
+            debugger;
+          })
+        }
+
         const metrics = await this.counterNumberOfNode(page)
   
         results.push({

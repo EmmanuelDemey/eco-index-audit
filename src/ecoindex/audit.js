@@ -96,7 +96,7 @@ function checkUrl (url) {
 
 const tracker = PuppeteerTracker;
 
-module.exports = async (url, beforeScript) => {
+module.exports = async (url, beforeScript, afterScript, headless) => {
   const urls = Array.isArray(url) ? url : [url];
   
   const wrongUrl = urls.find(url => !checkUrl(url));
@@ -104,7 +104,7 @@ module.exports = async (url, beforeScript) => {
     console.error(`You have at least one malformed URL`);
   }
 
-  const resultByUrl = await tracker.audit(urls, beforeScript);
+  const resultByUrl = await tracker.audit(urls, beforeScript, afterScript, headless);
 
   const result = resultByUrl.map(({
     metrics,
