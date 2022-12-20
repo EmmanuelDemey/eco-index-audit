@@ -56,6 +56,7 @@ module.exports = {
         }
         if(!headless){
           await page.evaluate(() => {
+            // eslint-disable-next-line no-debugger
             debugger;
           })
         }
