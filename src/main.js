@@ -12,7 +12,12 @@ module.exports = async (options, withResult = false) => {
     ...options
   }
 
-  const result = await audit(options.url, options.beforeScript, options.afterScript, options.headless ?? true);
+  const result = await audit(options.url, {
+    beforeScript: options.beforeScript,
+    afterScript: options.afterScript,
+    headless: options.headless ?? true,
+    globals: options.globals
+  });
   const gradeInput = grades.findIndex((o) => o === options.grade);
   const gradeOutput = grades.findIndex((o) => o === result.grade);
   if (options.output === "csv") reportCsvResult(result, optionsWithDefault);

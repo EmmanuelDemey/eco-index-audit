@@ -64,13 +64,18 @@ module.exports = defineConfig({
           const check = require('eco-index-audit/src/main')
           const response = await check({
             url,
-            beforeScript: () => {
-              localStorage.setItem('authorisation', 'value')
-            },
-            afterScript: () => {
-              localStorage.clear()
-            },
-            headless: false
+            {
+              beforeScript: (globals) => {
+                localStorage.setItem('authorisation', 'value')
+              },
+              afterScript: (globals) => {
+                localStorage.clear()
+              },
+              headless: false,
+              globals: {
+
+              }
+            }
           }, true);
           return response
         }
@@ -81,6 +86,8 @@ module.exports = defineConfig({
 ```
 
 If the `headless` parameter is set to false, the UI will opened with the Devtools enabled and will automatically stopped running everything after loading the page (using a debugger statement),
+
+The `globals` object can be used if you need to share some data during the execution of the `beforeScript` and `afterScript` hooks. This object will be available as a parameter to these two hooks. 
 
 And then use this task inside your test. Inside your test, you can check if the ecoIndex is below a threshold.
 

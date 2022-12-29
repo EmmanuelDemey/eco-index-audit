@@ -1,12 +1,13 @@
 const puppeteer = require("puppeteer");
 
+
 module.exports = {
     counterNumberOfNode(page){
       return page.evaluate(() => {
         return document.getElementsByTagName("*").length;
       });
     },
-    async audit(urls, beforeScript, afterScript, headless){
+    async audit(urls, {beforeScript, afterScript, headless, globals }){
       const browser = await puppeteer.launch({
         headless,
         devtools: !headless
@@ -44,7 +45,7 @@ module.exports = {
         await page.goto(url);
 
         if(beforeScript){
-          await page.evaluate(beforeScript);
+          await page.evaluate(beforeScript, globals);
           numberOfRequests = 0;
           sizeOfRequests = 0;
           await page.goto(url);
@@ -52,7 +53,7 @@ module.exports = {
 
 
         if(afterScript){
-          await page.evaluate(afterScript)
+          await page.evaluate(afterScript, globals)
         }
         if(!headless){
           await page.evaluate(() => {
