@@ -142,7 +142,7 @@ describe('Cypress test', () => {
     }, { errorMsg: `L'EcoIndex est inférieur à ${threshold}`, verbose: true})
   })
 })
-``
+```
 
 
 ## Environment Variables
