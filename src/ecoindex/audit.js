@@ -106,13 +106,16 @@ module.exports = async (url, options) => {
 
   const resultByUrl = await tracker.audit(urls, options);
 
+
   const result = resultByUrl.map(({
     metrics,
     numberOfRequests,
-    sizeOfRequests
+    sizeOfRequests,
+    url
   }) => {
     const ecoIndex = computeEcoIndex(metrics, numberOfRequests, Math.round(sizeOfRequests / 1000));
     return {
+      url,
       ecoIndex,
       grade: getEcoIndexGrade(ecoIndex),
       greenhouseGasesEmission: computeGreenhouseGasesEmissionfromEcoIndex(ecoIndex),
