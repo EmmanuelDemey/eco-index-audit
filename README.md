@@ -121,6 +121,30 @@ describe('Cypress test', () => {
 })
 ```
 
+If you have interceptors inside your Cypress test, your eco-index will be better than expected. In order to be as closed as the reality, you can update the initial values of the metrics we used to. For example, if you intercept 4 HTTP requests of 1024 bytes
+
+```js
+describe('Cypress test', () => {
+  const url = 'https://google.com'
+  beforeEach(() => {
+    cy.visit(url)
+  })
+
+  it('should have a good ecoindex', async () => {
+    const threshold = 50
+    let ecoIndex;
+    cy.task("checkEcoIndex", url, {
+      numberOfRequests: 4,
+      sizeOfRequests: 4 * 1024
+    }).then(response => ecoIndex = response.ecoIndex)
+    cy.waitUntil(() => {
+      return ecoIndex >= threshold
+    }, { errorMsg: `L'EcoIndex est inférieur à ${threshold}`, verbose: true})
+  })
+})
+``
+
+
 ## Environment Variables
 
 You can add environment variables in order to configure `eco-index-audit`: 

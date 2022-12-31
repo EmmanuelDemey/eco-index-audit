@@ -14,12 +14,15 @@ module.exports = {
       }
     });
     on("task", {
-      async checkEcoIndex(url) {
+      async checkEcoIndex(url, initialValues = {}) {
         const check = require("./main");
         return await check(
           {
             url: url,
             ...options,
+            initialValues: {
+              [url]: initialValues
+            },
             remote_debugging_port: global.remote_debugging_port,
             remote_debugging_address: global.remote_debugging_address,
           },

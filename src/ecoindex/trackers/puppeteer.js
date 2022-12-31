@@ -37,7 +37,7 @@ module.exports = {
       });
     },
 
-    async audit(urls, {beforeScript, afterScript, headless, globals, remote_debugging_port, remote_debugging_address }){
+    async audit(urls, {beforeScript, afterScript, headless, globals, remote_debugging_port, remote_debugging_address, initialValues }){
       const shouldReuseExistingChromium = remote_debugging_port && remote_debugging_address;
       let browser;
 
@@ -115,9 +115,9 @@ module.exports = {
         
         results.push({
           url,
-          metrics,
-          numberOfRequests,
-          sizeOfRequests
+          metrics: metrics + (initialValues?.[url]?.metrics ?? 0),
+          numberOfRequests: numberOfRequests + (initialValues?.[url]?.numberOfRequests ?? 0),
+          sizeOfRequests: sizeOfRequests + (initialValues?.[url]?.sizeOfRequests ?? 0)
         });
       }
   
