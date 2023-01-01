@@ -1,0 +1,8 @@
+.idea
+.github
+.eslintignore
+.husky
+cypress
+*.js.snap
+.eslintrc.yml
+cypress.config.js
