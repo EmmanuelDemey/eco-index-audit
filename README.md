@@ -112,11 +112,7 @@ describe('Cypress test', () => {
 
   it('should have a good ecoindex', async () => {
     const threshold = 50
-    let ecoIndex;
-    cy.task("checkEcoIndex", url).then(response => ecoIndex = response.ecoIndex)
-    cy.waitUntil(() => {
-      return ecoIndex >= threshold
-    }, { errorMsg: `L'EcoIndex est inférieur à ${threshold}`, verbose: true})
+    cy.task("checkEcoIndex", url).its('ecoIndex').should('be.greaterThan', threshold);
   })
 })
 ```
@@ -132,14 +128,10 @@ describe('Cypress test', () => {
 
   it('should have a good ecoindex', async () => {
     const threshold = 50
-    let ecoIndex;
     cy.task("checkEcoIndex", url, {
       numberOfRequests: 4,
       sizeOfRequests: 4 * 1024
-    }).then(response => ecoIndex = response.ecoIndex)
-    cy.waitUntil(() => {
-      return ecoIndex >= threshold
-    }, { errorMsg: `L'EcoIndex est inférieur à ${threshold}`, verbose: true})
+    }).its('ecoIndex').should('be.greaterThan', threshold);
   })
 })
 ```

@@ -7,12 +7,7 @@ describe('example to-do app', () => {
   })
 
   it('should have a good ecoindex', () => {
-    const threshold = 50
-    let ecoIndex;
-    cy.task("checkEcoIndex", url).then(response => ecoIndex = response.ecoIndex)
-    cy.waitUntil(() => {
-      return ecoIndex >= threshold
-    }, { errorMsg: `L'EcoIndex est inférieur à ${threshold}`, verbose: true})
-
+    const threshold = 99
+    cy.task("checkEcoIndex", url).its('ecoIndex').should('be.greaterThan', threshold);
   })
 })
