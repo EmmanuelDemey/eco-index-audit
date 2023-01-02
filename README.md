@@ -55,18 +55,6 @@ jobs:
 
 For the moment, you can only use `eco-index-audit` inside a Cypress test suites running on a Chromium-based browser.
 
-Before using `eco-index-audit` inside a Cypress test suite, you need to install and enable a new `devDependency`: `cypress-wait-until`. In order to install it inside your project, you need to execute the following command : 
-
-```shell
-npm i -D cypress-wait-until
-```
-
-Next, in order to enable it, you need to add the following import inside the `cypress/support/command.js` file. 
-
-```js
-import 'cypress-wait-until';
-```
-
 You are able to run this module during your Cypress test. The first step is to define a new task in the `cypress.config.js` file.
 
 ```js
@@ -114,7 +102,7 @@ describe('Cypress test', () => {
 
   it('should have a good ecoindex', async () => {
     const threshold = 50
-    cy.task("checkEcoIndex", url).its('ecoIndex').should('be.greaterThan', threshold);
+    cy.task("checkEcoIndex", url).its('ecoIndex', { timeout: 0 }).should('be.greaterThan', threshold);
   })
 })
 ```

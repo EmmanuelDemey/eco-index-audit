@@ -8,6 +8,6 @@ describe('example to-do app', () => {
 
   it('should have a good ecoindex', () => {
     const threshold = 99
-    cy.task("checkEcoIndex", url).its('ecoIndex').should('be.greaterThan', threshold);
+    cy.task("checkEcoIndex", url).its('ecoIndex', { timeout: 0 }).should('be.greaterThan', threshold);
   })
 })
