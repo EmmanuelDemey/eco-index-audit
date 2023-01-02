@@ -146,6 +146,10 @@ Update snapshots with `npm test -- -u`
 
 Typescript, Puppeteer
 
+## Resources 
+
+* [Eco Index Audit Cypress Plugin by Gleb Bahmutov](https://www.youtube.com/watch?v=pmuPVl7mdKI)
+
 ## Authors
 
 - [@EmmanuelDemey](https://www.github.com/EmmanuelDemey)
