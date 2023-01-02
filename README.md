@@ -2,6 +2,8 @@
 
 [![Actions Status](https://github.com/EmmanuelDemey/eco-index-audit/workflows/Build/badge.svg)](https://github.com/EmmanuelDemey/eco-index-audit/actions)
 
+This tool is the CLI version of [this website](https://www.ecoindex.fr/)
+
 ## Installation
 
 If you just need to run an audit, you can use NPX
