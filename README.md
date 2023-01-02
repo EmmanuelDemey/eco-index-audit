@@ -100,7 +100,7 @@ describe('Cypress test', () => {
     cy.visit(url)
   })
 
-  it('should have a good ecoindex', async () => {
+  it('should have a good ecoindex', () => {
     const threshold = 50
     cy.task("checkEcoIndex", url).its('ecoIndex', { timeout: 0 }).should('be.greaterThan', threshold);
   })
@@ -116,12 +116,12 @@ describe('Cypress test', () => {
     cy.visit(url)
   })
 
-  it('should have a good ecoindex', async () => {
+  it('should have a good ecoindex', () => {
     const threshold = 50
     cy.task("checkEcoIndex", url, {
       numberOfRequests: 4,
       sizeOfRequests: 4 * 1024
-    }).its('ecoIndex').should('be.greaterThan', threshold);
+    }).its('ecoIndex', { timeout: 0 }).should('be.greaterThan', threshold);
   })
 })
 ```
