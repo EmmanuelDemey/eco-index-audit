@@ -55,6 +55,10 @@ jobs:
 
 For the moment, you can only use `eco-index-audit` inside a Cypress test suites running on a Chromium-based browser.
 
+```shell
+npx cypress run -b chrome
+```
+
 You are able to run this module during your Cypress test. The first step is to define a new task in the `cypress.config.js` file.
 
 ```js
@@ -102,7 +106,7 @@ describe('Cypress test', () => {
 
   it('should have a good ecoindex', () => {
     const threshold = 50
-    cy.task("checkEcoIndex", url).its('ecoIndex', { timeout: 0 }).should('be.greaterThan', threshold);
+    cy.task("checkEcoIndex", { url }).its('ecoIndex', { timeout: 0 }).should('be.greaterThan', threshold);
   })
 })
 ```
@@ -118,14 +122,39 @@ describe('Cypress test', () => {
 
   it('should have a good ecoindex', () => {
     const threshold = 50
-    cy.task("checkEcoIndex", url, {
-      numberOfRequests: 4,
-      sizeOfRequests: 4 * 1024
+    cy.task("checkEcoIndex", {
+      url,
+      initialValues: {
+        numberOfRequests: 4,
+        sizeOfRequests: 4 * 1024
+      }
     }).its('ecoIndex', { timeout: 0 }).should('be.greaterThan', threshold);
   })
 })
 ```
 
+You can also define the `outputPathDir` and `outputPath` options in order to save the result in a file. These properties are only use for the `json` and `csv` formats.
+
+```js
+describe('Cypress test', () => {
+  const url = 'https://google.com'
+  beforeEach(() => {
+    cy.visit(url)
+  })
+
+  it('should have a good ecoindex', () => {
+    const threshold = 50
+    cy.task("checkEcoIndex", {
+      url,
+      overrideOptions: {
+        output: "json",
+        outputPathDir,
+        outputPath: path.join(outputPathDir, "result.json"),
+      }
+    }).its('ecoIndex', { timeout: 0 }).should('be.greaterThan', threshold);
+  })
+})
+```
 
 ## Environment Variables
 

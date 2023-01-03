@@ -1,4 +1,5 @@
 const {getComplementaryGESInfo, getComplementaryWaterInfo} = require("../utils");
+const fs = require('fs');
 
 module.exports =  (result, options) => {
     const rows = [["Métrique", "Valeur", "Informations complémentaires"].join(',')]
@@ -11,5 +12,11 @@ module.exports =  (result, options) => {
         ["Eau", result.waterConsumption + 'cl', getComplementaryWaterInfo(result.waterConsumption, options)].join(',')
     ]);
 
-    console.log(rows.join('\n').toString());
+    const formattedCSV = rows.join('\n').toString()
+    if(options.outputPath && options.outputPathDir){
+        fs.mkdirSync(options.outputPathDir, { recursive: true });
+        fs.writeFileSync(options.outputPath, formattedCSV);
+    }
+
+    console.log(formattedCSV);
 }

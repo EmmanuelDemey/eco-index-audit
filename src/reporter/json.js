@@ -2,6 +2,7 @@ const {
   getComplementaryGESInfo,
   getComplementaryWaterInfo,
 } = require("../utils");
+const fs = require('fs');
 
 module.exports = (result, options) => {
   const data = [
@@ -26,5 +27,12 @@ module.exports = (result, options) => {
       comment: getComplementaryWaterInfo(result.waterConsumption, options),
     },
   ];
-  console.log(JSON.stringify(data, null, 2));
+
+  const formattedJSON = JSON.stringify(data, null, 2);
+
+  if(options.outputPath && options.outputPathDir){
+    fs.mkdirSync(options.outputPathDir, { recursive: true });
+    fs.writeFileSync(options.outputPath, formattedJSON);
+  }
+  console.log(formattedJSON);
 };
