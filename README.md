@@ -136,6 +136,33 @@ describe('Cypress test', () => {
 You can also define the `outputPathDir` and `outputPath` options in order to save the result in a file. These properties are only use for the `json` and `csv` formats.
 
 ```js
+const path = require('path');
+
+describe('Cypress test', () => {
+  const url = 'https://google.com'
+  beforeEach(() => {
+    cy.visit(url)
+  })
+
+  const outputPathDir = path.join(__dirname, 'reports');
+  
+  it('should have a good ecoindex', () => {
+    const threshold = 50
+    cy.task("checkEcoIndex", {
+      url,
+      overrideOptions: {
+        output: "json",
+        outputPathDir,
+        outputPath: path.join(outputPathDir, "result.json"),
+      }
+    }).its('ecoIndex', { timeout: 0 }).should('be.greaterThan', threshold);
+  })
+})
+```
+
+You can also add a `timeout` before closing the Puppeteer page in order to debug the page thank to the `beforeClosingPageTimeout` options. 
+
+```js
 describe('Cypress test', () => {
   const url = 'https://google.com'
   beforeEach(() => {
@@ -147,9 +174,7 @@ describe('Cypress test', () => {
     cy.task("checkEcoIndex", {
       url,
       overrideOptions: {
-        output: "json",
-        outputPathDir,
-        outputPath: path.join(outputPathDir, "result.json"),
+        beforeClosingPageTimeout: 10
       }
     }).its('ecoIndex', { timeout: 0 }).should('be.greaterThan', threshold);
   })

@@ -19,7 +19,8 @@ module.exports = async (options, withResult = false) => {
     globals: options.globals,
     remote_debugging_port: options.remote_debugging_port,
     remote_debugging_address: options.remote_debugging_address,
-    initialValues: options.initialValues
+    initialValues: options.initialValues,
+    beforeClosingPageTimeout: options.beforeClosingPageTimeout
   });
   const gradeInput = grades.findIndex((o) => o === options.grade);
   const gradeOutput = grades.findIndex((o) => o === result.grade);

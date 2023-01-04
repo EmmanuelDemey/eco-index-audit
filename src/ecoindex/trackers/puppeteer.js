@@ -37,7 +37,7 @@ module.exports = {
       });
     },
 
-    async audit(urls, {beforeScript, afterScript, headless, globals, remote_debugging_port, remote_debugging_address, initialValues }){
+    async audit(urls, {beforeScript, afterScript, headless, globals, remote_debugging_port, remote_debugging_address, initialValues, beforeClosingPageTimeout }){
       const shouldReuseExistingChromium = remote_debugging_port && remote_debugging_address;
       let browser;
 
@@ -121,6 +121,10 @@ module.exports = {
         });
       }
   
+      if(!!beforeClosingPageTimeout){
+        await new Promise(r => setTimeout(r, beforeClosingPageTimeout));
+      }
+
       if(!shouldReuseExistingChromium){
         await browser.close();
       } else {
