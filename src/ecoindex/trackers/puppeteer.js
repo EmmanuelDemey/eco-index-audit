@@ -121,7 +121,7 @@ module.exports = {
         });
       }
   
-      if(!!beforeClosingPageTimeout){
+      if(beforeClosingPageTimeout){
         await new Promise(r => setTimeout(r, beforeClosingPageTimeout));
       }
 
