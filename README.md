@@ -145,7 +145,7 @@ describe('Cypress test', () => {
   })
 
   const outputPathDir = path.join(__dirname, 'reports');
-  
+
   it('should have a good ecoindex', () => {
     const threshold = 50
     cy.task("checkEcoIndex", {
@@ -160,7 +160,7 @@ describe('Cypress test', () => {
 })
 ```
 
-You can also add a `timeout` before closing the Puppeteer page in order to debug the page thank to the `beforeClosingPageTimeout` options. 
+You can also add a `timeout` before closing the Puppeteer page in order to debug the page thank to the `beforeClosingPageTimeout` options. The value is in `ms`
 
 ```js
 describe('Cypress test', () => {
@@ -174,7 +174,7 @@ describe('Cypress test', () => {
     cy.task("checkEcoIndex", {
       url,
       overrideOptions: {
-        beforeClosingPageTimeout: 10
+        beforeClosingPageTimeout: 10000
       }
     }).its('ecoIndex', { timeout: 0 }).should('be.greaterThan', threshold);
   })
