@@ -56,12 +56,14 @@ module.exports = {
       
       const page = await browser.newPage();
   
-      page.on('console', async (msg) => {
-        const msgArgs = msg.args();
-        for (let i = 0; i < msgArgs.length; ++i) {
-          console.log(await msgArgs[i].jsonValue());
-        }
-      });
+      if(process.env.ECOINDEX_VERBOSE === 'true'){
+        page.on('console', async (msg) => {
+          const msgArgs = msg.args();
+          for (let i = 0; i < msgArgs.length; ++i) {
+            console.log(await msgArgs[i].jsonValue());
+          }
+        });
+      }
       
       let numberOfRequests = 0;
       let sizeOfRequests = 0;
@@ -124,7 +126,8 @@ module.exports = {
       if(beforeClosingPageTimeout){
         await new Promise(r => setTimeout(r, beforeClosingPageTimeout));
       }
-
+      
+      page.removeAllListeners(['console'])
       if(!shouldReuseExistingChromium){
         await browser.close();
       } else {
