@@ -48,7 +48,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm i -g eco-index-audit@0.6.0
+      - run: npm i -g eco-index-audit
       - run: npx eco-index-audit --url=https://www.google.com/ --ecoIndex=90 --output=table
 ```
 
