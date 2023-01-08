@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint src/",
     "prepare": "husky install",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
