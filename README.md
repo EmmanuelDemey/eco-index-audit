@@ -2,6 +2,7 @@
 
 [![Actions Status](https://github.com/EmmanuelDemey/eco-index-audit/workflows/Build/badge.svg)](https://github.com/EmmanuelDemey/eco-index-audit/actions)
 [![npm version](https://badge.fury.io/js/eco-index-audit.svg)](https://badge.fury.io/js/eco-index-audit)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=EmmanuelDemey_eco-index-audit&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=EmmanuelDemey_eco-index-audit)
 
 This tool is the CLI version of [this website](https://www.ecoindex.fr/)
 
