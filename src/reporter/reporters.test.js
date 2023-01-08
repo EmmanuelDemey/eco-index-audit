@@ -1,6 +1,5 @@
 const csv = require("./csv");
 const json = require("./json");
-const table = require("./table");
 
 const sampleAudit = {
   ecoIndex: 56,
