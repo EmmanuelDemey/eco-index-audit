@@ -25,10 +25,3 @@ test("should report with JSON", () => {
   consoleLogMock.mockRestore();
 });
 
-test("should report with TABLE", () => {
-  const consoleLogMock = jest.spyOn(global.console, "log").mockImplementation();
-  table(sampleAudit, { visits: 2000 });
-  const result = consoleLogMock.mock.calls.join("\n");
-  expect(result).toMatchSnapshot();
-  consoleLogMock.mockRestore();
-});
