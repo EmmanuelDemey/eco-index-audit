@@ -6,6 +6,35 @@ const sampleAudit = {
   grade: "C",
   greenhouseGasesEmission: 1.88,
   waterConsumption: 2.82,
+  pages: [
+    {
+      url: "url",
+      ecoIndex: 56,
+      grade: "C",
+      greenhouseGasesEmission: 1.88,
+      waterConsumption: 2.82,
+      metrics: [
+        {
+          name: "number_requests",
+          value: 16,
+          status: "info",
+          recommandation: "< 30 requests",
+        },
+        {
+          name: "page_size_kbytes",
+          value: 1200,
+          status: "warning",
+          recommandation: "< 1000kb",
+        },
+        {
+          name: "Page_complexity",
+          value: 3000,
+          status: "error",
+          recommandation: "Between 300 and 500 nodes",
+        },
+      ],
+    },
+  ],
 };
 
 test("should report with CSV", () => {
@@ -22,28 +51,57 @@ Eau,2.82cl,Pour un total de 2000 visites par mois, ceci correspond à 1 douche`)
 });
 
 test("should report with JSON", () => {
-  const expected = JSON.stringify([
-    {
-      "label": "EcoIndex",
-      "value": 56
+  const expected = JSON.stringify({
+    score: 56,
+    grade: "C",
+    estimatation_co2: {
+      comment:
+        "Pour un total de 2000 visites par mois, ceci correspond à 42km en voiture (Peugeot 208 5P 1.6 BlueHDi FAP (75ch) BVM5)",
+      commentDetails: { numberOfVisit: 2000, value_km: 42 },
     },
-    {
-      "label": "Note",
-      "value": "C"
+    estimatation_water: {
+      comment: "Pour un total de 2000 visites par mois, ceci correspond à 1 douche",
+      commentDetails: { numberOfVisit: 2000, value_shower: 1 },
     },
-    {
-      "label": "GES",
-      "value": 1.88,
-      "unit": "gCO2e",
-      "comment": "Pour un total de 2000 visites par mois, ceci correspond à 42km en voiture (Peugeot 208 5P 1.6 BlueHDi FAP (75ch) BVM5)"
-    },
-    {
-      "label": "Eau",
-      "value": 2.82,
-      "unit": "cl",
-      "comment": "Pour un total de 2000 visites par mois, ceci correspond à 1 douche"
-    }
-  ]);
+    pages: [
+      {
+        url: "url",
+        ecoIndex: 56,
+        grade: "C",
+        greenhouseGasesEmission: 1.88,
+        waterConsumption: 2.82,
+        metrics: [
+          {
+            name: "number_requests",
+            value: 16,
+            status: "info",
+            recommandation: "< 30 requests",
+          },
+          {
+            name: "page_size_kbytes",
+            value: 1200,
+            status: "warning",
+            recommandation: "< 1000kb",
+          },
+          {
+            name: "Page_complexity",
+            value: 3000,
+            status: "error",
+            recommandation: "Between 300 and 500 nodes",
+          },
+        ],
+        estimatation_co2: {
+          comment:
+            "Pour un total de 2000 visites par mois, ceci correspond à 42km en voiture (Peugeot 208 5P 1.6 BlueHDi FAP (75ch) BVM5)",
+          commentDetails: { numberOfVisit: 2000, value_km: 42 },
+        },
+        estimatation_water: {
+          comment: "Pour un total de 2000 visites par mois, ceci correspond à 1 douche",
+          commentDetails: { numberOfVisit: 2000, value_shower: 1 },
+        }
+      },
+    ],
+  });
 
   const consoleLogMock = jest.spyOn(global.console, "log").mockImplementation();
   json(sampleAudit, { visits: 2000 });

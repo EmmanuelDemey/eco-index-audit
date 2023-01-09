@@ -55,7 +55,8 @@ module.exports = {
       }
       
       const page = await browser.newPage();
-  
+      page.setCacheEnabled(false);
+      
       if(process.env.ECOINDEX_VERBOSE === 'true'){
         page.on('console', async (msg) => {
           const msgArgs = msg.args();
@@ -81,7 +82,8 @@ module.exports = {
         numberOfRequests++;
         sizeOfRequests += event.encodedDataLength;
       });
-  
+      
+
       const results = [];
       for (const url of urls) {
         numberOfRequests = 0;
@@ -95,6 +97,10 @@ module.exports = {
           sizeOfRequests = 0;
           await page.goto(url, { waitUntil: "domcontentloaded" });
         }
+
+        try {
+          await page.waitForNavigation({ waitUntil: "networkidle0", timeout: 2000 });
+        } catch(e) { /* empty */ }
 
         if(process.env.ECOINDEX_DISPLAY_HTML === 'true'){
           logger(async () => {

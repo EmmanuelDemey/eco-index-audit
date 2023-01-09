@@ -12,6 +12,10 @@ If you just need to run an audit, you can use NPX
 
 ```bash
 npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=table
+
+npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=csv
+
+npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=json
 ```
 
 But you can also clone, install and run the project locally.
@@ -27,6 +31,7 @@ npm i
 ```shell
 node ./src/cli.js --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=table
 node ./src/cli.js --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=csv
+node ./src/cli.js --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=json
 ```
 
 ## CI Integration
