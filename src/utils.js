@@ -29,6 +29,8 @@ module.exports = {
       commentDetails: {
         numberOfVisit: options.visits,
         value_km: convertGreenHouseGasesEmission(greenhouseGasesEmission, options.visits),
+        value: convertGreenHouseGasesEmission(greenhouseGasesEmission, options.visits),
+        unit: 'km'
       },
     };
   },
@@ -38,6 +40,8 @@ module.exports = {
       commentDetails: {
         numberOfVisit: options.visits,
         value_shower: convertWater(waterConsumption, options.visits),
+        value: convertWater(waterConsumption, options.visits),
+        unit: 'douches'
       },
     };
   },

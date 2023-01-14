@@ -57,11 +57,11 @@ test("should report with JSON", () => {
     estimatation_co2: {
       comment:
         "Pour un total de 2000 visites par mois, ceci correspond à 42km en voiture (Peugeot 208 5P 1.6 BlueHDi FAP (75ch) BVM5)",
-      commentDetails: { numberOfVisit: 2000, value_km: 42 },
+      commentDetails: { numberOfVisit: 2000, value_km: 42, value: 42, unit: 'km' },
     },
     estimatation_water: {
       comment: "Pour un total de 2000 visites par mois, ceci correspond à 1 douche",
-      commentDetails: { numberOfVisit: 2000, value_shower: 1 },
+      commentDetails: { numberOfVisit: 2000, value_shower: 1, value: 1, unit: 'douches' },
     },
     pages: [
       {
@@ -93,11 +93,11 @@ test("should report with JSON", () => {
         estimatation_co2: {
           comment:
             "Pour un total de 2000 visites par mois, ceci correspond à 42km en voiture (Peugeot 208 5P 1.6 BlueHDi FAP (75ch) BVM5)",
-          commentDetails: { numberOfVisit: 2000, value_km: 42 },
+          commentDetails: { numberOfVisit: 2000, value_km: 42, value: 42, unit: 'km' },
         },
         estimatation_water: {
           comment: "Pour un total de 2000 visites par mois, ceci correspond à 1 douche",
-          commentDetails: { numberOfVisit: 2000, value_shower: 1 },
+          commentDetails: { numberOfVisit: 2000, value_shower: 1, value: 1, unit: 'douches' },
         }
       },
     ],
