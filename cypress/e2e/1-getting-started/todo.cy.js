@@ -16,7 +16,8 @@ describe("example to-do app", () => {
         output: "json",
         outputPathDir,
         outputPath: path.join(outputPathDir, "result.json"),
-        beforeClosingPageTimeout: 10000
+        beforeClosingPageTimeout: 10000,
+        waitForSelector: 'button'
       },
     })
       .its("ecoIndex", { timeout: 0 })

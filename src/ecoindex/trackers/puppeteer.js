@@ -37,7 +37,7 @@ module.exports = {
       });
     },
 
-    async audit(urls, {beforeScript, afterScript, headless, globals, remote_debugging_port, remote_debugging_address, initialValues, beforeClosingPageTimeout }){
+    async audit(urls, {beforeScript, afterScript, headless, globals, remote_debugging_port, remote_debugging_address, initialValues, beforeClosingPageTimeout, waitForSelector }){
       const shouldReuseExistingChromium = remote_debugging_port && remote_debugging_address;
       let browser;
 
@@ -98,9 +98,15 @@ module.exports = {
           await page.goto(url, { waitUntil: "domcontentloaded" });
         }
 
-        try {
-          await page.waitForNavigation({ waitUntil: "networkidle0", timeout: 2000 });
-        } catch(e) { /* empty */ }
+        if(waitForSelector){
+          await page.waitForSelector(waitForSelector, { timeout: 5000 })
+        } else {
+          try {
+            await page.waitForNavigation({ waitUntil: "networkidle0", timeout: 5000 });
+            page.waitForSelector()
+          } catch(e) { /* empty */ }
+        }
+        
 
         if(process.env.ECOINDEX_DISPLAY_HTML === 'true'){
           logger(async () => {
