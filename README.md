@@ -70,27 +70,36 @@ You are able to run this module during your Cypress test. The first step is to d
 
 ```js
 const { defineConfig } = require("cypress");
-const { enableEcoIndexAuditForCypress } = require('eco-index-audit/src/cypress');
 
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on) {
-      on('task', {
-        async checkEcoIndex(url){
-          enableEcoIndexAuditForCypress(on, {
-              beforeScript: (globals) => {
-                localStorage.setItem('authorisation', global.accessToken)
-              },
-              afterScript: (globals) => {
-                localStorage.clear()
-              },
-              headless: false,
-              globals: {
-                accessToken: 'accessTokenValue'
-              }
-          })
+      on("before:browser:launch", (_browser = {}, launchOptions) => {
+        const remoteDebuggingPort = launchOptions.args.find((config) => config.startsWith("--remote-debugging-port"));
+        const remoteDebuggingAddress = launchOptions.args.find((config) =>
+            config.startsWith("--remote-debugging-address")
+        );
+        if (remoteDebuggingPort) {
+            global.remote_debugging_port = remoteDebuggingPort.split("=")[1];
         }
-    })
+        if (remoteDebuggingAddress) {
+            global.remote_debugging_address = remoteDebuggingAddress.split("=")[1];
+        }
+    });
+
+      on('task', {
+        async checkEcoIndex({url, overrideOptions} = {}) {
+          const check = require("eco-index-audit/src/main");
+          return await check({
+              ...overrideOptions,
+              url: url,
+              remote_debugging_port: global.remote_debugging_port,
+              remote_debugging_address: global.remote_debugging_address,
+            },
+            true
+          );
+        }
+      })
     },
   },
 });
