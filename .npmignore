@@ -7,3 +7,5 @@ coverage
 *.js.snap
 .eslintrc.yml
 cypress.config.js
+sonar-project.properties
+*.test.js
