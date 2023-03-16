@@ -1,6 +1,6 @@
 {
   "name": "eco-index-audit",
-  "version": "3.2.1",
+  "version": "3.2.3",
   "description": "This module will generate the ecoindex score for a website",
   "main": "src/main.js",
   "bin": "src/cli.js",

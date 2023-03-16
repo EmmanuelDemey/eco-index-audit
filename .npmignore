@@ -3,6 +3,7 @@
 .eslintignore
 .husky
 cypress
+coverage
 *.js.snap
 .eslintrc.yml
 cypress.config.js
