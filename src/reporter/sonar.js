@@ -18,8 +18,8 @@ module.exports = (result, options) => {
     const sonar = {
       engineId: "eco-index",
       ruleId: "eco-index-below-threshold",
-      severity: "INFO",
-      type: "MAJOR",
+      severity: "MAJOR",
+      type: "BUG",
       primaryLocation: {
         message: `You ecoindex (${result.ecoIndex}) is below the configured threshold (${options.ecoIndex})`,
         filePath: options.sonarFilePath,
@@ -28,6 +28,6 @@ module.exports = (result, options) => {
 
     const dir = dirname(resolve(cwd(), options.outputPath));
     fs.mkdirSync(dir, {recursive: true})
-    fs.writeFileSync(join(dir, options.outputPath), JSON.stringify(sonar));
+    fs.writeFileSync(join(dir, options.outputPath), JSON.stringify({issues: [sonar]}));
   }
 };
