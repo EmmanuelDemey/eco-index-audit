@@ -16,6 +16,8 @@ npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --
 npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=csv
 
 npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=json
+
+npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=sonar --sonarFilePath=index.html --outputPath=sonar.json
 ```
 
 But you can also clone, install and run the project locally.
@@ -56,6 +58,16 @@ jobs:
           node-version: 16
       - run: npm i -g eco-index-audit
       - run: npx eco-index-audit --url=https://www.google.com/ --ecoIndex=90 --output=table
+```
+
+## Integration with Sonar
+
+Since the version *3.3.0* the CLI can generate a external sonar report you can add to the Sonar configuration (via the `sonar.externalIssuesReportPaths` option).
+
+You need to define the path to one of your file managed by Sonar, in order to make the rule visible in Sonar Cloud. 
+
+```shell
+npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=sonar --sonarFilePath=index.html --outputPath=sonar.json
 ```
 
 ## Integration with Cypress

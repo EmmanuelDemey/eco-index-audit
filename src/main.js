@@ -2,6 +2,7 @@ const audit = require("./ecoindex/audit")
 const reportResult = require("./reporter/table")
 const reportCsvResult = require("./reporter/csv")
 const reportJsonResult = require("./reporter/json")
+const reportSonarResult = require("./reporter/sonar")
 const config = require("./config");
 
 const grades = ["A", "B", "C", "D", "E", "F", "G"];
@@ -28,6 +29,7 @@ module.exports = async (options, withResult = false) => {
   if (options.output === "csv") reportCsvResult(result, optionsWithDefault);
   if (options.output === "json") reportJsonResult(result, optionsWithDefault);
   if (options.output === "table" || !options.output) reportResult(result, optionsWithDefault);
+  if (options.output === "sonar" || !options.output) reportSonarResult(result, optionsWithDefault);
 
   if (gradeInput !== -1 && gradeOutput > gradeInput) {
     console.error(
