@@ -28,8 +28,8 @@ module.exports = async (options, withResult = false) => {
   const gradeOutput = grades.findIndex((o) => o === result.grade);
   if (options.output === "csv") reportCsvResult(result, optionsWithDefault);
   if (options.output === "json") reportJsonResult(result, optionsWithDefault);
+  if (options.output === "sonar") reportSonarResult(result, optionsWithDefault);
   if (options.output === "table" || !options.output) reportResult(result, optionsWithDefault);
-  if (options.output === "sonar" || !options.output) reportSonarResult(result, optionsWithDefault);
 
   if (gradeInput !== -1 && gradeOutput > gradeInput) {
     console.error(

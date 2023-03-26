@@ -103,7 +103,6 @@ module.exports = {
         } else {
           try {
             await page.waitForNavigation({ waitUntil: "networkidle0", timeout: 5000 });
-            page.waitForSelector()
           } catch(e) { /* empty */ }
         }
         
