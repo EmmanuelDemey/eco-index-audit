@@ -3,8 +3,6 @@ const { dirname, resolve, join } = require("path");
 const { cwd } = require("process");
 
 module.exports = (result, options) => {
-  //TODO add documentation to the README
-
   if (!options.sonarFilePath) {
     console.error("You should define the sonarFilePath property");
     process.exit(1);

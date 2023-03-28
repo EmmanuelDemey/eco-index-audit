@@ -3,7 +3,7 @@ const { defineConfig } = require("cypress");
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on) {
-      on("before:browser:launch", (_browser = {}, launchOptions) => {
+      on("before:browser:launch", (_browser, launchOptions) => {
         const remoteDebuggingPort = launchOptions.args.find((config) => config.startsWith("--remote-debugging-port"));
         const remoteDebuggingAddress = launchOptions.args.find((config) =>
             config.startsWith("--remote-debugging-address")
