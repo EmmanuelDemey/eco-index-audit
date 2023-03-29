@@ -26,9 +26,9 @@ module.exports = (result, options) => {
 
   const formattedJSON = JSON.stringify(data, null, 2);
 
-  if (options.outputPath && options.outputPathDir) {
+  if (options.outputPathDir) {
     fs.mkdirSync(options.outputPathDir, { recursive: true });
-    fs.writeFileSync(options.outputPath, formattedJSON);
+    fs.writeFileSync(options.outputPathDir+ "/report.json", formattedJSON);
   }
   console.log(formattedJSON);
 };

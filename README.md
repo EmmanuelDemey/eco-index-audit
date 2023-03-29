@@ -17,7 +17,7 @@ npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --
 
 npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=json
 
-npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=sonar --sonarFilePath=index.html --outputPath=sonar.json
+npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=sonar --sonarFilePath=index.html --outputPathDir=./reports
 ```
 
 But you can also clone, install and run the project locally.
@@ -67,7 +67,7 @@ Since the version *3.3.0* the CLI can generate a external sonar report you can a
 You need to define the path to one of your file managed by Sonar, in order to make the rule visible in Sonar Cloud. 
 
 ```shell
-npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=sonar --sonarFilePath=index.html --outputPath=sonar.json
+npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=sonar --sonarFilePath=index.html --outputPathDir=./reports
 ```
 
 ## Integration with Cypress
@@ -82,39 +82,30 @@ You are able to run this module during your Cypress test. The first step is to d
 
 ```js
 const { defineConfig } = require("cypress");
+const { prepareAudit, checkEcoIndex } = require("eco-index-audit/src/cypress");
 
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on) {
-      on("before:browser:launch", (_browser = {}, launchOptions) => {
-        const remoteDebuggingPort = launchOptions.args.find((config) => config.startsWith("--remote-debugging-port"));
-        const remoteDebuggingAddress = launchOptions.args.find((config) =>
-            config.startsWith("--remote-debugging-address")
-        );
-        if (remoteDebuggingPort) {
-            global.remote_debugging_port = remoteDebuggingPort.split("=")[1];
-        }
-        if (remoteDebuggingAddress) {
-            global.remote_debugging_address = remoteDebuggingAddress.split("=")[1];
-        }
-    });
+      on("before:browser:launch", (_browser, launchOptions) => {
+        prepareAudit(launchOptions);
+      });
 
-      on('task', {
-        async checkEcoIndex({url, overrideOptions} = {}) {
-          const check = require("eco-index-audit/src/main");
-          return await check({
-              ...overrideOptions,
-              url: url,
-              remote_debugging_port: global.remote_debugging_port,
-              remote_debugging_address: global.remote_debugging_address,
-            },
-            true
-          );
-        }
-      })
+      on("task", {
+        checkEcoIndex: ({ url, options }) => checkEcoIndex({ 
+          url, 
+          options: {
+            headless: false,
+            globals: { data: 'data'},
+            beforeScript: (globals) => console.log(globals),
+            afterScript: (globals) => console.log(globals),
+          } 
+        }),
+      });
     },
   },
 });
+
 ```
 
 If the `headless` parameter is set to false, the UI will opened with the Devtools enabled and will automatically stopped running everything after loading the page (using a debugger statement),
@@ -161,7 +152,7 @@ describe('Cypress test', () => {
 })
 ```
 
-You can also define the `outputPathDir` and `outputPath` options in order to save the result in a file. These properties are only use for the `json` and `csv` formats.
+You can also define the `outputPathDir` option in order to save the result in a file. These properties are only use for the `json` and `csv` formats.
 
 ```js
 const path = require('path');
@@ -178,10 +169,9 @@ describe('Cypress test', () => {
     const threshold = 50
     cy.task("checkEcoIndex", {
       url,
-      overrideOptions: {
+      options: {
         output: "json",
-        outputPathDir,
-        outputPath: path.join(outputPathDir, "result.json"),
+        outputPathDir
       }
     }).its('ecoIndex', { timeout: 0 }).should('be.greaterThan', threshold);
   })
@@ -201,7 +191,7 @@ describe('Cypress test', () => {
     const threshold = 50
     cy.task("checkEcoIndex", {
       url,
-      overrideOptions: {
+      options: {
         beforeClosingPageTimeout: 10000
       }
     }).its('ecoIndex', { timeout: 0 }).should('be.greaterThan', threshold);
@@ -226,7 +216,7 @@ Update snapshots with `npm test -- -u`
 
 ## Tech Stack
 
-Typescript, Puppeteer
+Typescript, Puppeteer, Cypress
 
 ## Resources 
 

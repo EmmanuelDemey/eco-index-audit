@@ -8,8 +8,7 @@ const optionDefinitions = [
   { name: "ecoIndex", alias: "e", type: Number },
   { name: "url", type: String, multiple: true },
   { name: "visits", type: Number },
-  { name: "output", type: String },
-  { name: "outputPath", type: String },
+  { name: "output", type: String, multiple: true },
   { name: "outputPathDir", type: String },
   { name: "sonarFilePath", type: String }
 ];

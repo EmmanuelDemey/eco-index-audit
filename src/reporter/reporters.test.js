@@ -1,5 +1,6 @@
 const csv = require("./csv");
 const json = require("./json");
+const sonar = require("./sonar");
 
 const sampleAudit = {
   ecoIndex: 56,
@@ -41,7 +42,7 @@ test("should report with CSV", () => {
   const consoleLogMock = jest.spyOn(global.console, "log").mockImplementation();
   csv(sampleAudit, { visits: 2000 });
   const result = consoleLogMock.mock.calls.join("\n");
-  console.log(result)
+  console.log(result);
   expect(result).toEqual(`Métrique,Valeur,Informations complémentaires
 EcoIndex,56/100,
 Note,C,
@@ -57,11 +58,11 @@ test("should report with JSON", () => {
     estimatation_co2: {
       comment:
         "Pour un total de 2000 visites par mois, ceci correspond à 42km en voiture (Peugeot 208 5P 1.6 BlueHDi FAP (75ch) BVM5)",
-      commentDetails: { numberOfVisit: 2000, value_km: 42, value: 42, unit: 'km' },
+      commentDetails: { numberOfVisit: 2000, value_km: 42, value: 42, unit: "km" },
     },
     estimatation_water: {
       comment: "Pour un total de 2000 visites par mois, ceci correspond à 1 douche",
-      commentDetails: { numberOfVisit: 2000, value_shower: 1, value: 1, unit: 'douches' },
+      commentDetails: { numberOfVisit: 2000, value_shower: 1, value: 1, unit: "douches" },
     },
     pages: [
       {
@@ -93,12 +94,12 @@ test("should report with JSON", () => {
         estimatation_co2: {
           comment:
             "Pour un total de 2000 visites par mois, ceci correspond à 42km en voiture (Peugeot 208 5P 1.6 BlueHDi FAP (75ch) BVM5)",
-          commentDetails: { numberOfVisit: 2000, value_km: 42, value: 42, unit: 'km' },
+          commentDetails: { numberOfVisit: 2000, value_km: 42, value: 42, unit: "km" },
         },
         estimatation_water: {
           comment: "Pour un total de 2000 visites par mois, ceci correspond à 1 douche",
-          commentDetails: { numberOfVisit: 2000, value_shower: 1, value: 1, unit: 'douches' },
-        }
+          commentDetails: { numberOfVisit: 2000, value_shower: 1, value: 1, unit: "douches" },
+        },
       },
     ],
   });
@@ -108,4 +109,22 @@ test("should report with JSON", () => {
   const result = consoleLogMock.mock.calls.join("\n");
   expect(JSON.stringify(JSON.parse(result))).toEqual(expected);
   consoleLogMock.mockRestore();
+});
+
+test("should report with Sonar", () => {
+  const consoleLogMock = jest.spyOn(global.console, "log").mockImplementation();
+  sonar(sampleAudit, { ecoIndex: 100, sonarFilePath: "sonarFilePath" });
+  const result = consoleLogMock.mock.calls;
+  expect(result[0]).toEqual([
+    {
+      engineId: "eco-index",
+      primaryLocation: {
+        filePath: "sonarFilePath",
+        message: "You ecoindex (56) is below the configured threshold (100)",
+      },
+      ruleId: "eco-index-below-threshold",
+      severity: "MAJOR",
+      type: "BUG",
+    },
+  ]);
 });

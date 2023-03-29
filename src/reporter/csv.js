@@ -13,9 +13,9 @@ module.exports =  (result, options) => {
     ]);
 
     const formattedCSV = rows.join('\n').toString()
-    if(options.outputPath && options.outputPathDir){
+    if(options.outputPathDir){
         fs.mkdirSync(options.outputPathDir, { recursive: true });
-        fs.writeFileSync(options.outputPath, formattedCSV);
+        fs.writeFileSync(options.outputPathDir + "/report.txt", formattedCSV);
     }
 
     console.log(formattedCSV);

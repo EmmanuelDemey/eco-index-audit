@@ -12,10 +12,9 @@ describe("example to-do app", () => {
     const outputPathDir = path.join(__dirname, "ecoIndex")
     cy.task("checkEcoIndex", {
       url,
-      overrideOptions: {
+      options: {
         output: "json",
         outputPathDir,
-        outputPath: path.join(outputPathDir, "result.json"),
         beforeClosingPageTimeout: 10000
       },
     })

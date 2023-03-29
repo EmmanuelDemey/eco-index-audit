@@ -1,18 +1,13 @@
 const fs = require("fs");
-const { dirname, resolve, join } = require("path");
-const { cwd } = require("process");
 
 module.exports = (result, options) => {
   if (!options.sonarFilePath) {
     console.error("You should define the sonarFilePath property");
     process.exit(1);
   }
-  if (!options.outputPath) {
-    console.error("You should define the outputPath property");
-    process.exit(1);
-  }
 
   if (options.ecoIndex > result.ecoIndex) {
+    
     const sonar = {
       engineId: "eco-index",
       ruleId: "eco-index-below-threshold",
@@ -24,8 +19,12 @@ module.exports = (result, options) => {
       },
     };
 
-    const dir = dirname(resolve(cwd(), options.outputPath));
-    fs.mkdirSync(dir, {recursive: true})
-    fs.writeFileSync(join(dir, options.outputPath), JSON.stringify({issues: [sonar]}));
+    if(options.outputPathDir){
+      fs.mkdirSync(options.outputPathDir, { recursive: true });
+      fs.writeFileSync(options.outputPathDir + "/sonar.json", JSON.stringify({issues: [sonar]}));
+    }
+
+    console.log(sonar);
+
   }
 };
