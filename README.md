@@ -199,6 +199,48 @@ describe('Cypress test', () => {
 })
 ```
 
+## Configure via the eco-index-audit.js file
+
+You can also configure this module via a `eco-index-audit.js` configuration file. This file should be located in the root folder of your project. 
+
+```js
+module.exports = {
+  url: ["https://www.google.com/"],
+  output: [
+    "table"
+  ]
+};
+
+```
+
+Thanks to this file, you can enable dynamic output in order to archive results into any external service. In the following snippet, we will sotre the result into Elasticsearch. 
+
+```js
+module.exports = {
+  url: ["https://www.google.com/"],
+  output: [
+    "table",
+    (results) => {
+      const { Client } = require("@elastic/elasticsearch");
+      const client = new Client({
+        cloud: {
+          id: "...",
+        },
+        auth: {
+          username: "...",
+          password: "...",
+        },
+      });
+      client.index({
+        index: 'eco-index',
+        document: results
+      })
+    },
+  ],
+};
+
+```
+
 ## Environment Variables
 
 You can add environment variables in order to configure `eco-index-audit`: 
