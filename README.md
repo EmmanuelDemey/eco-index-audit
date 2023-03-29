@@ -17,7 +17,7 @@ npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --
 
 npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=json
 
-npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=sonar --sonarFilePath=index.html --outputPath=sonar.json
+npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=sonar --sonarFilePath=index.html --outputPathDir=./reports
 ```
 
 But you can also clone, install and run the project locally.
@@ -67,7 +67,7 @@ Since the version *3.3.0* the CLI can generate a external sonar report you can a
 You need to define the path to one of your file managed by Sonar, in order to make the rule visible in Sonar Cloud. 
 
 ```shell
-npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=sonar --sonarFilePath=index.html --outputPath=sonar.json
+npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=sonar --sonarFilePath=index.html --outputPathDir=./reports
 ```
 
 ## Integration with Cypress
@@ -161,7 +161,7 @@ describe('Cypress test', () => {
 })
 ```
 
-You can also define the `outputPathDir` and `outputPath` options in order to save the result in a file. These properties are only use for the `json` and `csv` formats.
+You can also define the `outputPathDir` option in order to save the result in a file. These properties are only use for the `json` and `csv` formats.
 
 ```js
 const path = require('path');
@@ -180,8 +180,7 @@ describe('Cypress test', () => {
       url,
       overrideOptions: {
         output: "json",
-        outputPathDir,
-        outputPath: path.join(outputPathDir, "result.json"),
+        outputPathDir
       }
     }).its('ecoIndex', { timeout: 0 }).should('be.greaterThan', threshold);
   })

@@ -26,10 +26,11 @@ module.exports = async (options, withResult = false) => {
   });
   const gradeInput = grades.findIndex((o) => o === options.grade);
   const gradeOutput = grades.findIndex((o) => o === result.grade);
-  if (options.output === "csv") reportCsvResult(result, optionsWithDefault);
-  if (options.output === "json") reportJsonResult(result, optionsWithDefault);
-  if (options.output === "sonar") reportSonarResult(result, optionsWithDefault);
-  if (options.output === "table" || !options.output) reportResult(result, optionsWithDefault);
+
+  if (options.output.indexOf("csv") >= 0) reportCsvResult(result, optionsWithDefault);
+  if (options.output.indexOf("json") >= 0) reportJsonResult(result, optionsWithDefault);
+  if (options.output.indexOf("sonar") >= 0) reportSonarResult(result, optionsWithDefault);
+  if (options.output.indexOf("table") >= 0 || options.output.length === 0) reportResult(result, optionsWithDefault);
 
   if (gradeInput !== -1 && gradeOutput > gradeInput) {
     console.error(
