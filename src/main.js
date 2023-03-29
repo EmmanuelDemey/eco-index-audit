@@ -27,11 +27,16 @@ module.exports = async (options, withResult = false) => {
   const gradeInput = grades.findIndex((o) => o === options.grade);
   const gradeOutput = grades.findIndex((o) => o === result.grade);
 
-  if (options.output.indexOf("csv") >= 0) reportCsvResult(result, optionsWithDefault);
-  if (options.output.indexOf("json") >= 0) reportJsonResult(result, optionsWithDefault);
-  if (options.output.indexOf("sonar") >= 0) reportSonarResult(result, optionsWithDefault);
-  if (options.output.indexOf("table") >= 0 || options.output.length === 0) reportResult(result, optionsWithDefault);
-
+  options.output?.forEach(output => {
+    if(typeof output !== "string"){
+      output(result, optionsWithDefault)
+    }
+    else if (output?.indexOf("csv") >= 0) reportCsvResult(result, optionsWithDefault);
+    else if (output?.indexOf("json") >= 0) reportJsonResult(result, optionsWithDefault);
+    else if (output?.indexOf("sonar") >= 0) reportSonarResult(result, optionsWithDefault);
+    else if (output?.indexOf("table") >= 0 || (!options.output || options.output?.length === 0)) reportResult(result, optionsWithDefault);
+  })
+  
   if (gradeInput !== -1 && gradeOutput > gradeInput) {
     console.error(
       `Your grade is ${gradeOutput}, but should be below ${gradeInput}`
