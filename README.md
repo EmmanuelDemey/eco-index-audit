@@ -82,39 +82,30 @@ You are able to run this module during your Cypress test. The first step is to d
 
 ```js
 const { defineConfig } = require("cypress");
+const { prepareAudit, checkEcoIndex } = require("eco-index-audit/src/cypress");
 
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on) {
-      on("before:browser:launch", (_browser = {}, launchOptions) => {
-        const remoteDebuggingPort = launchOptions.args.find((config) => config.startsWith("--remote-debugging-port"));
-        const remoteDebuggingAddress = launchOptions.args.find((config) =>
-            config.startsWith("--remote-debugging-address")
-        );
-        if (remoteDebuggingPort) {
-            global.remote_debugging_port = remoteDebuggingPort.split("=")[1];
-        }
-        if (remoteDebuggingAddress) {
-            global.remote_debugging_address = remoteDebuggingAddress.split("=")[1];
-        }
-    });
+      on("before:browser:launch", (_browser, launchOptions) => {
+        prepareAudit(launchOptions);
+      });
 
-      on('task', {
-        async checkEcoIndex({url, overrideOptions} = {}) {
-          const check = require("eco-index-audit/src/main");
-          return await check({
-              ...overrideOptions,
-              url: url,
-              remote_debugging_port: global.remote_debugging_port,
-              remote_debugging_address: global.remote_debugging_address,
-            },
-            true
-          );
-        }
-      })
+      on("task", {
+        checkEcoIndex: ({ url, options }) => checkEcoIndex({ 
+          url, 
+          options: {
+            headless: false,
+            globals: { data: 'data'},
+            beforeScript: (globals) => console.log(globals),
+            afterScript: (globals) => console.log(globals),
+          } 
+        }),
+      });
     },
   },
 });
+
 ```
 
 If the `headless` parameter is set to false, the UI will opened with the Devtools enabled and will automatically stopped running everything after loading the page (using a debugger statement),
@@ -178,7 +169,7 @@ describe('Cypress test', () => {
     const threshold = 50
     cy.task("checkEcoIndex", {
       url,
-      overrideOptions: {
+      options: {
         output: "json",
         outputPathDir
       }
@@ -200,7 +191,7 @@ describe('Cypress test', () => {
     const threshold = 50
     cy.task("checkEcoIndex", {
       url,
-      overrideOptions: {
+      options: {
         beforeClosingPageTimeout: 10000
       }
     }).its('ecoIndex', { timeout: 0 }).should('be.greaterThan', threshold);
@@ -225,7 +216,7 @@ Update snapshots with `npm test -- -u`
 
 ## Tech Stack
 
-Typescript, Puppeteer
+Typescript, Puppeteer, Cypress
 
 ## Resources 
 
