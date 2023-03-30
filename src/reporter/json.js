@@ -28,7 +28,7 @@ module.exports = (result, options) => {
 
   if (options.outputPathDir) {
     fs.mkdirSync(options.outputPathDir, { recursive: true });
-    fs.writeFileSync(options.outputPathDir+ "/report.json", formattedJSON);
+    fs.writeFileSync(options.outputPathDir + "/" + (options.outputFileName ?? "report") + ".json", formattedJSON);
   }
   console.log(formattedJSON);
 };
