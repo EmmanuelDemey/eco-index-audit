@@ -21,7 +21,7 @@ module.exports = (result, options) => {
 
     if(options.outputPathDir){
       fs.mkdirSync(options.outputPathDir, { recursive: true });
-      fs.writeFileSync(options.outputPathDir + "/sonar.json", JSON.stringify({issues: [sonar]}));
+      fs.writeFileSync(options.outputPathDir + "/" + (options.outputFileName ?? "report") + "-sonar.json", JSON.stringify({issues: [sonar]}));
     }
 
     console.log(sonar);

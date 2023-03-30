@@ -12,6 +12,7 @@ const optionDefinitions = [
   { name: "visits", type: Number },
   { name: "output", type: String, multiple: true },
   { name: "outputPathDir", type: String },
+  { name: "outputFileName", type: String },
   { name: "sonarFilePath", type: String }
 ];
 
