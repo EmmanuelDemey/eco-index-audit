@@ -267,3 +267,8 @@ Typescript, Puppeteer, Cypress
 ## Authors
 
 - [@EmmanuelDemey](https://www.github.com/EmmanuelDemey)
+
+## Disclaimer
+
+The LCA values used by [ecoindex_api](https://github.com/cnumr/ecoindex_api) to evaluate environmental impacts are not under free license - ©Frédéric Bordage
+Please also refer to the mentions provided in the code files for specifics on the IP regime.
