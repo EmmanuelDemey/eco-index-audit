@@ -20,10 +20,18 @@ jobs:
       - name: Run Test
         run: |
           npm run test
-      - name: Run Cypress Integration test
+      - name: Run Cypress Integration test via NPX
         run: |
           npx cypress run --browser=chrome
           npx cypress run --browser=chromium
+      - name: Run Cypress Integration test via Cypress Github Actions
+        uses: cypress-io/github-action@v5
+        with:
+          browser: chromium
+          headless: true
+          config-file: cypress.config.js
+          env:
+            ECOINDEX_VERBOSE: true
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
