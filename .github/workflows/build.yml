@@ -18,6 +18,9 @@ jobs:
       - name: Run Test
         run: |
           npm run test
+      - name: Run Cypress Integration test
+        run: |
+          npx cypress run --browser=chrome    
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

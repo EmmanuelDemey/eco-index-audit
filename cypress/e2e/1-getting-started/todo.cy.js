@@ -13,7 +13,7 @@ describe("example to-do app", () => {
     cy.task("checkEcoIndex", {
       url,
       options: {
-        output: "json",
+        output: ["json"],
         outputPathDir,
         beforeClosingPageTimeout: 10000
       },
