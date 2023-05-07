@@ -1,6 +1,6 @@
 {
   "name": "eco-index-audit",
-  "version": "4.3.0",
+  "version": "4.4.0",
   "description": "This module will generate the ecoindex score for a website",
   "main": "src/main.js",
   "bin": "src/cli.js",
@@ -35,6 +35,7 @@
     "puppeteer": "^19.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.33.0",
     "cypress": "^10.11.0",
     "eslint": "^8.5.0",
     "eslint-plugin-jest": "^27.0.4",

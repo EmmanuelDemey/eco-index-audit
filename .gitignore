@@ -105,3 +105,6 @@ dist
 
 *.mp4
 eco-index-audit.js
+/test-results/
+/playwright-report/
+/playwright/.cache/
