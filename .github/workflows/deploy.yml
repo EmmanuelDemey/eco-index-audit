@@ -45,6 +45,6 @@ jobs:
           token: ${{ secrets.NPM_SECRET }}
       - uses: JS-DevTools/npm-publish@v1
         with:
-          access: public
-          package: aggregator
+          access: publicgit s
+          package: aggregator/package.json
           token: ${{ secrets.NPM_SECRET }}
