@@ -21,11 +21,11 @@ jobs:
       - name: Run Cypress Integration test
         run: |
           npx cypress run --browser=chrome
-      - name: Lint Aggregator
+      - name: Lint and Test Aggregator
         run: |
-          npm run --prefix aggregator ci
-          npm run --prefix aggregator lint
-      - name: Test Aggregator
-        run: |
-          npm run --prefix aggregator test
+          cd aggregator
+          npm run ci
+          npm run lint
+          npm run test
+          cd ..
     
