@@ -24,7 +24,7 @@ jobs:
       - name: Lint and Test Aggregator
         run: |
           cd aggregator
-          npm run ci
+          npm ci
           npm run lint
           npm run test
           cd ..
