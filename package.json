@@ -1,5 +1,5 @@
 {
-  "name": "eco-index-audit",
+  "name": "@cnumr/eco-index-audit",
   "version": "4.4.0",
   "description": "This module will generate the ecoindex score for a website",
   "main": "src/main.js",

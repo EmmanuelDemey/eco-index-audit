@@ -1,8 +1,8 @@
 # Eco Index Audit
 
-[![Actions Status](https://github.com/EmmanuelDemey/eco-index-audit/workflows/Build/badge.svg)](https://github.com/EmmanuelDemey/eco-index-audit/actions)
+[![Actions Status](https://github.com/cnumr/eco-index-audit/workflows/Build/badge.svg)](https://github.com/EmmanuelDemey/eco-index-audit/actions)
 [![npm version](https://badge.fury.io/js/eco-index-audit.svg)](https://badge.fury.io/js/eco-index-audit)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=EmmanuelDemey_eco-index-audit&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=EmmanuelDemey_eco-index-audit)
+
 
 This tool is the CLI version of [this website](https://www.ecoindex.fr/)
 
@@ -11,19 +11,19 @@ This tool is the CLI version of [this website](https://www.ecoindex.fr/)
 If you just need to run an audit, you can use NPX
 
 ```bash
-npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=table
+npx @cnumr/eco-index-auditeco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=table
 
-npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=csv
+npx @cnumr/eco-index-auditeco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=csv
 
-npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=json
+npx @cnumr/eco-index-auditeco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=json
 
-npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=sonar --sonarFilePath=index.html --outputPathDir=./reports
+npx @cnumr/eco-index-auditeco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=sonar --sonarFilePath=index.html --outputPathDir=./reports
 ```
 
 But you can also clone, install and run the project locally.
 
 ```bash
-git clone https://github.com/EmmanuelDemey/eco-index-audit
+git clone https://github.com/cnumr/eco-index-audit
 cd eco-index-audit
 npm i
 ```
@@ -56,8 +56,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm i -g eco-index-audit
-      - run: npx eco-index-audit --url=https://www.google.com/ --ecoIndex=90 --output=table
+      - run: npx @cnumr/eco-index-audit --url=https://www.google.com/ --ecoIndex=90 --output=table
 ```
 
 ## Integration with Sonar
@@ -67,7 +66,7 @@ Since the version *3.3.0* the CLI can generate a external sonar report you can a
 You need to define the path to one of your file managed by Sonar, in order to make the rule visible in Sonar Cloud. 
 
 ```shell
-npx eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=sonar --sonarFilePath=index.html --outputPathDir=./reports
+npx @cnumr/eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=sonar --sonarFilePath=index.html --outputPathDir=./reports
 ```
 
 ## Integration with Cypress
@@ -82,7 +81,7 @@ You are able to run this module during your Cypress test. The first step is to d
 
 ```js
 const { defineConfig } = require("cypress");
-const { prepareAudit, checkEcoIndex } = require("eco-index-audit/src/cypress");
+const { prepareAudit, checkEcoIndex } = require("eco-@cnumr/eco-index-audit/src/cypress");
 
 module.exports = defineConfig({
   e2e: {
