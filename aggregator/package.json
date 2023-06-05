@@ -1,0 +1,34 @@
+{
+  "name": "@cnumr/lighthouse-eco-index-aggregator",
+  "version": "1.0.0",
+  "description": "Tool for aggregating lighthouse and eco-index results",
+  "main": "src/cli.js",
+  "private": false,
+  "files": [
+    "src",
+    "readme.md",
+    "globalReports.html",
+    "LICENSE.md",
+    "package.json",
+    "package-lock.json",
+    ".eslintrc.js"
+  ],
+  "scripts": {
+    "start": "node src/cli.js --srcLighthouse=./example/lighthouse --srcEcoIndex=./example/ecoindex --reports=html --outputPath=./example/report_final",
+    "lint": "eslint",
+    "test": "jest --coverage"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "command-line-args": "^5.2.1",
+    "command-line-usage": "^5.0.0",
+    "ejs": "^3.1.8",
+    "fs-extra": "^11.1.1",
+    "html-minifier": "^4.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.36.0",
+    "husky": "^8.0.3",
+    "jest": "^29.5.0"
+  }
+}

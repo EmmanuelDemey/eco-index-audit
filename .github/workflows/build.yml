@@ -20,9 +20,12 @@ jobs:
           npm run test
       - name: Run Cypress Integration test
         run: |
-          npx cypress run --browser=chrome    
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          npx cypress run --browser=chrome
+      - name: Lint Aggregator
+        run: |
+          npm run --prefix aggregator ci
+          npm run --prefix aggregator lint
+      - name: Test Aggregator
+        run: |
+          npm run --prefix aggregator test
+    

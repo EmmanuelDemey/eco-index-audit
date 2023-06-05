@@ -20,6 +20,13 @@ jobs:
       - name: Run Test
         run: |
           npm run test
+      - name: Lint Aggregator
+        run: |
+          npm run --prefix aggregator ci
+          npm run --prefix aggregator lint
+      - name: Test Aggregator
+        run: |
+          npm run --prefix aggregator test
       - name: Run Cypress Integration test via NPX
         run: |
           npx cypress run --browser=chrome
@@ -40,4 +47,9 @@ jobs:
       - uses: JS-DevTools/npm-publish@v1
         with:
           access: public
+          token: ${{ secrets.NPM_SECRET }}
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          access: public
+          package: aggregator
           token: ${{ secrets.NPM_SECRET }}
