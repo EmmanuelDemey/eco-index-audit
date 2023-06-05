@@ -11,13 +11,13 @@ This tool is the CLI version of [this website](https://www.ecoindex.fr/)
 If you just need to run an audit, you can use NPX
 
 ```bash
-npx @cnumr/eco-index-auditeco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=table
+npx @cnumr/eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=table
 
-npx @cnumr/eco-index-auditeco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=csv
+npx @cnumr/eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=csv
 
-npx @cnumr/eco-index-auditeco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=json
+npx @cnumr/eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=json
 
-npx @cnumr/eco-index-auditeco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=sonar --sonarFilePath=index.html --outputPathDir=./reports
+npx @cnumr/eco-index-audit --url=https://www.google.com/ --ecoIndex=50 --visits=2000 --output=sonar --sonarFilePath=index.html --outputPathDir=./reports
 ```
 
 But you can also clone, install and run the project locally.
