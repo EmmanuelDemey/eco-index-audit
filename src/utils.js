@@ -11,13 +11,18 @@ const convertWater = (value, visits) => {
 };
 
 const getComplementaryGESInfo = (greenhouseGasesEmission, options) => {
-  const convertedValue = convertGreenHouseGasesEmission(greenhouseGasesEmission, options.visits);
+  const convertedValue = convertGreenHouseGasesEmission(
+    greenhouseGasesEmission,
+    options.visits
+  );
   return `Pour un total de ${options.visits} visites par mois, ceci correspond à ${convertedValue}km en voiture (Peugeot 208 5P 1.6 BlueHDi FAP (75ch) BVM5)`;
 };
 
 const getComplementaryWaterInfo = (waterConsumption, options) => {
   const convertedValue = convertWater(waterConsumption, options.visits);
-  return `Pour un total de ${options.visits} visites par mois, ceci correspond à ${convertedValue} douche${
+  return `Pour un total de ${
+    options.visits
+  } visites par mois, ceci correspond à ${convertedValue} douche${
     convertedValue > 1 ? "s" : ""
   }`;
 };
@@ -28,9 +33,15 @@ module.exports = {
       comment: getComplementaryGESInfo(greenhouseGasesEmission, options),
       commentDetails: {
         numberOfVisit: options.visits,
-        value_km: convertGreenHouseGasesEmission(greenhouseGasesEmission, options.visits),
-        value: convertGreenHouseGasesEmission(greenhouseGasesEmission, options.visits),
-        unit: 'km'
+        value_km: convertGreenHouseGasesEmission(
+          greenhouseGasesEmission,
+          options.visits
+        ),
+        value: convertGreenHouseGasesEmission(
+          greenhouseGasesEmission,
+          options.visits
+        ),
+        unit: "km",
       },
     };
   },
@@ -41,7 +52,7 @@ module.exports = {
         numberOfVisit: options.visits,
         value_shower: convertWater(waterConsumption, options.visits),
         value: convertWater(waterConsumption, options.visits),
-        unit: 'douches'
+        unit: "douches",
       },
     };
   },

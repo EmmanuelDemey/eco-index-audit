@@ -1,4 +1,7 @@
-const { getComplementaryGESInfoAndDetails, getComplementaryWaterInfoAndDetails } = require("../utils");
+const {
+  getComplementaryGESInfoAndDetails,
+  getComplementaryWaterInfoAndDetails,
+} = require("../utils");
 const fs = require("fs");
 
 module.exports = (result, options) => {
@@ -6,21 +9,30 @@ module.exports = (result, options) => {
     score: result.ecoIndex,
     grade: result.grade,
     estimatation_co2: {
-      ...getComplementaryGESInfoAndDetails(result.greenhouseGasesEmission, options),
+      ...getComplementaryGESInfoAndDetails(
+        result.greenhouseGasesEmission,
+        options
+      ),
     },
     estimatation_water: {
       ...getComplementaryWaterInfoAndDetails(result.waterConsumption, options),
     },
-    pages: result.pages.map(page => {
+    pages: result.pages.map((page) => {
       return {
-        ...page, 
+        ...page,
         estimatation_co2: {
-          ...getComplementaryGESInfoAndDetails(page.greenhouseGasesEmission, options),
+          ...getComplementaryGESInfoAndDetails(
+            page.greenhouseGasesEmission,
+            options
+          ),
         },
         estimatation_water: {
-          ...getComplementaryWaterInfoAndDetails(page.waterConsumption, options),
-        }
-      }
+          ...getComplementaryWaterInfoAndDetails(
+            page.waterConsumption,
+            options
+          ),
+        },
+      };
     }),
   };
 
@@ -28,7 +40,13 @@ module.exports = (result, options) => {
 
   if (options.outputPathDir) {
     fs.mkdirSync(options.outputPathDir, { recursive: true });
-    fs.writeFileSync(options.outputPathDir + "/" + (options.outputFileName ?? "report") + ".json", formattedJSON);
+    fs.writeFileSync(
+      options.outputPathDir +
+        "/" +
+        (options.outputFileName ?? "report") +
+        ".json",
+      formattedJSON
+    );
   }
   console.log(formattedJSON);
 };

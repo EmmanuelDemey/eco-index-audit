@@ -8,7 +8,6 @@ module.exports = (result, options) => {
   const issues = [];
 
   if (options.ecoIndex > result.ecoIndex) {
-
     const sonar = {
       engineId: "eco-index",
       ruleId: "eco-index-below-threshold",
@@ -22,38 +21,45 @@ module.exports = (result, options) => {
     issues.push(sonar);
   }
 
-
   const generateMetricMessage = (name, value, status, recommandation) => {
     //`You ecoindex (${result.ecoIndex}) is below the configured threshold (${options.ecoIndex})`
-    if(name === "number_requests"){
-      return `The number of HTTP requests (${value}) is below the configured threshold (${recommandation})`
+    if (name === "number_requests") {
+      return `The number of HTTP requests (${value}) is below the configured threshold (${recommandation})`;
+    } else if (name === "page_size") {
+      return `The size of the page (${value}) is below the configured threshold (${recommandation})`;
+    } else if (name === "Page_complexity") {
+      return `The complexity of the page (${value}) is below the configured threshold (${recommandation})`;
     }
-    else if(name === "page_size"){
-      return `The size of the page (${value}) is below the configured threshold (${recommandation})`
-    }
-    else if(name === "Page_complexity"){
-      return `The complexity of the page (${value}) is below the configured threshold (${recommandation})`
-    }
-  }
+  };
   result.pages?.forEach(({ url, metrics }) => {
     metrics?.forEach(({ name, value, status, recommandation }) => {
-      if(status === "warning" || status === "error"){
+      if (status === "warning" || status === "error") {
         issues.push({
           engineId: "eco-index",
           ruleId: "eco-index-" + name.toLowerCase(),
           severity: status === "warning" ? "MINOR" : "MAJOR",
           type: "BUG",
           primaryLocation: {
-            message: generateMetricMessage(name, value, status, recommandation) + ` (${url})` ,
+            message:
+              generateMetricMessage(name, value, status, recommandation) +
+              ` (${url})`,
             filePath: options.sonarFilePath,
           },
-        })
+        });
       }
-    })
+    });
   });
 
-  if(options.outputPathDir && issues.length > 0){
+  if (options.outputPathDir && issues.length > 0) {
     fs.mkdirSync(options.outputPathDir, { recursive: true });
-    fs.writeFileSync(options.outputPathDir + "/" + (options.outputFileName ?? "report") + "-sonar.json", JSON.stringify({issues}));
+    fs.writeFileSync(
+      options.outputPathDir +
+        "/" +
+        (options.outputFileName ?? "report") +
+        "-sonar.json",
+      JSON.stringify({ issues })
+    );
   }
+
+  console.log(issues);
 };

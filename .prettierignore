@@ -8,5 +8,5 @@ coverage
 .eslintrc.yml
 cypress.config.js
 sonar-project.properties
-*.test.js
-aggregator/cypress-demo/report_final
+aggregator/
+

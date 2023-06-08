@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-const check = require('./main');
+const check = require("./main");
 const commandLineArgs = require("command-line-args");
 const fs = require("fs");
 const path = require("path");
@@ -13,19 +13,19 @@ const optionDefinitions = [
   { name: "output", type: String, multiple: true },
   { name: "outputPathDir", type: String },
   { name: "outputFileName", type: String },
-  { name: "sonarFilePath", type: String }
+  { name: "sonarFilePath", type: String },
 ];
 
 (async () => {
   let options = commandLineArgs(optionDefinitions);
 
-  const configPath = path.join(process.cwd(), 'eco-index-audit.js');
-  if(fs.existsSync(configPath)){
+  const configPath = path.join(process.cwd(), "eco-index-audit.js");
+  if (fs.existsSync(configPath)) {
     const config = require(configPath);
     options = {
       ...config,
-      ...options
-    }
+      ...options,
+    };
   }
   const result = await check(options);
   if (!result) {
