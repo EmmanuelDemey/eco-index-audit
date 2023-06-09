@@ -42,6 +42,7 @@ const readFiles = (options, ecoIndexJsonReportsFiles) => {
         page.estimatation_co2?.commentDetails?.numberOfVisit;
       perPages.push({
         pageName,
+        url: page.url,
         ecoIndex: page.ecoIndex,
         grade: page.grade,
         greenhouseGases: page.greenhouseGasesEmission,
@@ -69,6 +70,7 @@ const readFiles = (options, ecoIndexJsonReportsFiles) => {
     console.log("global greenhouse gases in km:", greenhouseGasesKm);
     console.log("global greenhouse water:", waterShower);
   }
+
   return {
     ecoIndex,
     grade,

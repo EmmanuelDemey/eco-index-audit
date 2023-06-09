@@ -41,6 +41,7 @@ const readFiles = (options, lighthouseJsonReportsFiles) => {
       accessibility,
       bestPractices,
       performance,
+      originalReport: result
     });
   });
   if (globalPerformance !== 0) {

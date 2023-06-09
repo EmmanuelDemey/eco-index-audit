@@ -78,6 +78,7 @@ describe("AggregatorService", () => {
       waterShower: 0,
       perPages: [
         {
+          url: "http://localhost:3000",
           ecoIndex: 71,
           grade: "B",
           greenhouseGases: 1.58,
@@ -101,6 +102,7 @@ describe("AggregatorService", () => {
           waterShower: 0,
         },
         {
+          url: "http://localhost:3000",
           ecoIndex: 71,
           grade: "B",
           greenhouseGases: 1.58,

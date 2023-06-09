@@ -19,6 +19,8 @@ const globalBaseEcoIndex = (options, ecoindex, lighthouse = {}) => {
         (pageLighthouse) => pageEcoIndex.pageName === pageLighthouse.pageName
       );
       return {
+        url: pageEcoIndex.url,
+        originalReport: pageLighthouse?.originalReport,
         pageName: pageEcoIndex.pageName,
         lighthouseReport: pageLighthouse?.lighthouseReport ?? "",
         accessibility: pageLighthouse?.accessibility ?? 0,

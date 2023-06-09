@@ -22,7 +22,6 @@ module.exports = (result, options) => {
   }
 
   const generateMetricMessage = (name, value, status, recommandation) => {
-    //`You ecoindex (${result.ecoIndex}) is below the configured threshold (${options.ecoIndex})`
     if (name === "number_requests") {
       return `The number of HTTP requests (${value}) is below the configured threshold (${recommandation})`;
     } else if (name === "page_size") {

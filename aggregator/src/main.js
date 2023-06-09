@@ -23,7 +23,7 @@ module.exports = async (_options) => {
     ...defaultThreshold,
     ..._options
   };
-  
+
   if(options.config){
     options = {
       ...options,

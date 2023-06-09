@@ -40,6 +40,17 @@ const { statusGreen } = require("./utils/statusGreen");
 const { statusPerPage } = require("./utils/statusPerPage");
 const { basename } = require("path");
 
+const generateMetricMessage = (name, value, status, recommandation) => {
+  if (name === "number_requests") {
+    return `The number of HTTP requests (${value}) is below the configured threshold (${recommandation})`;
+  } else if (name === "page_size") {
+    return `The size of the page (${value}) is below the configured threshold (${recommandation})`;
+  } else if (name === "Page_complexity") {
+    return `The complexity of the page (${value}) is below the configured threshold (${recommandation})`;
+  }
+};
+
+
 const generateReportsSonar = async (options, results) => {
   if (!options.sonarFilePath) {
     console.error("You should define the sonarFilePath property");
@@ -48,7 +59,7 @@ const generateReportsSonar = async (options, results) => {
 
   const issues = [];
 
-  const addIssues = (value, ruleId, name) => {
+  const addIssues = (value, ruleId, name, engineId) => {
     if (options.fail > value) {
       issues.push({
         engineId: "eco-index",
@@ -63,7 +74,7 @@ const generateReportsSonar = async (options, results) => {
     } else {
       if (options.fail <= value && value < options.pass) {
         issues.push({
-          engineId: "eco-index",
+          engineId,
           ruleId,
           severity: "MINOR",
           type: "BUG",
@@ -76,17 +87,61 @@ const generateReportsSonar = async (options, results) => {
     }
   };
 
-  addIssues(results.ecoIndex, "eco-index-below-threshold", "ecoindex");
-  addIssues(results.performance, "performance-below-threshold", "performance");
+  addIssues(results.ecoIndex, "eco-index-below-threshold", "ecoindex", "eco-index");
+
+  results.perPages?.forEach(({ url, originalReport }) => {
+    Object.entries(originalReport?.categories).forEach(([categoryName, categoryOption]) => {
+      const auditRefs = categoryOption.auditRefs;
+      auditRefs.forEach(({ id }) => {
+        if(originalReport?.audits[id]){
+          const auditResult = originalReport?.audits[id];
+          if(auditResult.score === 0){
+            issues.push({
+              engineId: "lighthouse",
+              ruleId: `${categoryName}-${id}`,
+              severity: "MAJOR",
+              type: "BUG",
+              primaryLocation: {
+                message: `${auditResult.title} - ${auditResult.description} (${url})`,
+                filePath: options.sonarFilePath,
+              },
+            });
+          }
+        }
+      });
+    });
+  });
+  
+
+  results.perPages?.forEach(({ url, metrics }) => {
+    metrics?.forEach(({ name, value, status, recommandation }) => {
+      if (status === "warning" || status === "error") {
+        issues.push({
+          engineId: "eco-index",
+          ruleId: "eco-index-" + name.toLowerCase(),
+          severity: status === "warning" ? "MINOR" : "MAJOR",
+          type: "BUG",
+          primaryLocation: {
+            message:
+                generateMetricMessage(name, value, status, recommandation) +
+                ` (${url})`,
+            filePath: options.sonarFilePath,
+          },
+        });
+      }
+    });
+  });
+
+  addIssues(results.performance, "performance-below-threshold", "performance", "lighthouse");
   addIssues(
     results.accessibility,
     "accessibility-below-threshold",
-    "accessibility"
+    "accessibility", "lighthouse"
   );
   addIssues(
     results.bestPractices,
     "bestPractices-below-threshold",
-    "bestPractices"
+    "bestPractices", "lighthouse"
   );
 
   fs.writeFileSync(

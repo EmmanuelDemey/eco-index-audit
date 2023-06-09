@@ -31,6 +31,7 @@ describe("AggregatorService", () => {
           performance: 76,
           accessibility: 60,
           bestPractices: 78,
+          originalReport: inputValue
         },
         {
           pageName: "bar",
@@ -38,6 +39,7 @@ describe("AggregatorService", () => {
           performance: 76,
           accessibility: 60,
           bestPractices: 78,
+          originalReport: inputValue
         },
       ],
     };
