@@ -27,7 +27,7 @@
   "homepage": "https://github.com/EmmanuelDemey/eco-index-audit#readme",
   "dependencies": {
     "@elastic/elasticsearch": "^8.6.0",
-    "chalk": "^4.1.2",
+    "chalk": "^5.3.0",
     "cli-highlight": "^2.1.11",
     "cli-table": "^0.3.6",
     "command-line-args": "^5.1.1",
